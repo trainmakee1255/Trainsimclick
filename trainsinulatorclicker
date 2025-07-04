@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tap the Train!</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      color: #fff;
+    }
+
+    .train-display {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .tap-button {
+      background-color: #ffffff;
+      color: #333;
+      font-size: 2rem;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+
+    .tap-button:active {
+      transform: scale(0.95);
+    }
+
+    .counter {
+      margin-top: 1rem;
+      font-size: 1.5rem;
+    }
+
+    .all-time-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: white;
+      color: #333;
+      border: none;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+      cursor: pointer;
+    }
+
+    .leaderboard {
+      position: absolute;
+      bottom: 80px;
+      left: 20px;
+      font-size: 1.2rem;
+      background-color: rgba(255, 255, 255, 0.9);
+      color: #333;
+      padding: 10px 15px;
+      border-radius: 10px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="train-display">🚂🚋🚃🚋🚃🚋🚃</div>
+
+  <button class="tap-button" id="tapBtn">Tap!</button>
+
+  <div class="counter" id="counterText">Train Tapped: 0</div>
+
+  <button class="all-time-btn" id="allTimeBtn">All Time</button>
+  <div class="leaderboard" id="leaderboard"></div>
+
+  <script>
+    let count = 0;
+    let allTimeCount = parseInt(localStorage.getItem("trainAllTime")) || 0;
+
+    const counterText = document.getElementById("counterText");
+    const tapBtn = document.getElementById("tapBtn");
+    const leaderboard = document.getElementById("leaderboard");
+    const allTimeBtn = document.getElementById("allTimeBtn");
+
+    tapBtn.addEventListener("click", () => {
+      count++;
+      allTimeCount++;
+      localStorage.setItem("trainAllTime", allTimeCount);
+      counterText.textContent = `Train Tapped: ${count}`;
+    });
+
+    allTimeBtn.addEventListener("click", () => {
+      leaderboard.style.display = leaderboard.style.display === "block" ? "none" : "block";
+      leaderboard.textContent = `All-Time Taps: ${allTimeCount}`;
+    });
+  </script>
+
+</body>
+</html>
